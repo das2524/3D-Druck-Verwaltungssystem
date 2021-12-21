@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Printing" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="PrintingContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PersonSet" EntityType="Printing.Person" />
+    <EntitySet Name="DruckerSet" EntityType="Printing.Drucker" />
+    <EntitySet Name="DruckauftragSet" EntityType="Printing.Druckauftrag" />
+    <AssociationSet Name="PersonDrucker" Association="Printing.PersonDrucker">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Drucker" EntitySet="DruckerSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonDruckauftrag" Association="Printing.Erstellt">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+    </AssociationSet>
+    <AssociationSet Name="Bearbeitet" Association="Printing.Bearbeitet">
+      <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+      <End Role="Person" EntitySet="PersonSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vorname" Type="String" Nullable="false" />
+    <NavigationProperty Name="Drucker" Relationship="Printing.PersonDrucker" FromRole="Person" ToRole="Drucker" />
+    <NavigationProperty Name="Erstellt" Relationship="Printing.Erstellt" FromRole="Person" ToRole="Druckauftrag" />
+    <NavigationProperty Name="Bearbeitet" Relationship="Printing.Bearbeitet" FromRole="Person" ToRole="Druckauftrag" />
+    <Property Name="Nachname" Type="String" Nullable="false" />
+    <Property Name="EMail" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Drucker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Printing.PersonDrucker" FromRole="Drucker" ToRole="Person" />
+    <Property Name="Besitzer" Type="Int32" Nullable="false" />
+    <Property Name="Bauraum" Type="String" Nullable="false" />
+    <Property Name="VerfuegbareMaterialen" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Druckauftrag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BauteilURL" Type="String" Nullable="false" />
+    <NavigationProperty Name="Erstellt" Relationship="Printing.Erstellt" FromRole="Druckauftrag" ToRole="Person" />
+    <Property Name="ersteller" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Bearbeitet" Relationship="Printing.Bearbeitet" FromRole="Druckauftrag" ToRole="Person" />
+    <Property Name="bearbeiter" Type="Int32" Nullable="true" />
+    <Property Name="gestartet" Type="DateTime" Nullable="true" />
+    <Property Name="Material" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonDrucker">
+    <End Type="Printing.Person" Role="Person" Multiplicity="1" />
+    <End Type="Printing.Drucker" Role="Drucker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drucker">
+        <PropertyRef Name="Besitzer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Erstellt">
+    <End Type="Printing.Person" Role="Person" Multiplicity="1" />
+    <End Type="Printing.Druckauftrag" Role="Druckauftrag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Druckauftrag">
+        <PropertyRef Name="ersteller" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Bearbeitet">
+    <End Type="Printing.Druckauftrag" Role="Druckauftrag" Multiplicity="*" />
+    <End Type="Printing.Person" Role="Person" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Druckauftrag">
+        <PropertyRef Name="bearbeiter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

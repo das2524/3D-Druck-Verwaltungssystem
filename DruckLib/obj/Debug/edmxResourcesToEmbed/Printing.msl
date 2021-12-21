@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PrintingStoreContainer" CdmEntityContainer="PrintingContainer">
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Printing.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DruckerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Printing.Drucker)">
+        <MappingFragment StoreEntitySet="DruckerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Besitzer" ColumnName="Besitzer" />
+          <ScalarProperty Name="Bauraum" ColumnName="Bauraum" />
+          <ScalarProperty Name="VerfuegbareMaterialen" ColumnName="VerfuegbareMaterialen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DruckauftragSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Printing.Druckauftrag)">
+        <MappingFragment StoreEntitySet="DruckauftragSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BauteilURL" ColumnName="BauteilURL" />
+          <ScalarProperty Name="ersteller" ColumnName="ersteller" />
+          <ScalarProperty Name="bearbeiter" ColumnName="bearbeiter" />
+          <ScalarProperty Name="gestartet" ColumnName="gestartet" />
+          <ScalarProperty Name="Material" ColumnName="Material" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

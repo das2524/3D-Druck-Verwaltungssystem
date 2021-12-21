@@ -1,0 +1,65 @@
+﻿@model DruckLib.Druckauftrag
+
+@{
+    ViewBag.Title = "Start";
+}
+
+<h2>Druckauftrag Starten</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h3>Sind Sie sicher, dass Sie den Druckauftrag starten wollen?</h3>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Erstellt)
+    @Html.HiddenFor(model => model.Bearbeitet)
+    @Html.HiddenFor(model => model.BauteilURL)
+    @Html.HiddenFor(model => model.gestartet)
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.BauteilURL)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.BauteilURL)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Material)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Material)
+    </dd>
+
+    <dt>
+        Ersteller
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Erstellt.Vorname)
+    </dd>
+
+</dl>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Starten" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

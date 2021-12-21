@@ -1,0 +1,51 @@
+﻿@model DruckLib.Drucker
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Drucker</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Modell:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Verfügbare Materialien:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerfuegbareMaterialen)
+        </dd>
+
+        <dt>
+            Bauraum:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bauraum)
+        </dd>
+
+        <dt>
+            Besitzer:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Vorname) &nbsp;
+            @Html.DisplayFor(model => model.Person.Nachname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

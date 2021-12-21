@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>3D Print it!</h1>
+    <p class="lead">3D Print it! hilft es Druckaufträge und Personen mit 3D Druckern zueinander zu finden und effizient kooperativ zu Arbeiten!</p>
+    <p><a href='@Url.Action("Create", "People")' class="btn btn-primary btn-lg">Account Erstellen &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Werde jetzt Mitglied der Community!</h2>
+        <p>
+            3D Print it! gibt dir die Möglichkeit Druckaufträge zu erstellen, welche von anderen Usern bearbeitet werden können, sowie Druckaufträge von anderen Usern anzunehmen.
+        </p>
+        <p><a href='@Url.Action("Index", "Login")' class="btn btn-default">User ansehen &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Druckaufträge</h2>
+        <p>Sieh dir hier bereits von der Community bearbeitete Druckaufträge an.</p>
+        <p><a class="btn btn-default" href='@Url.Action("Bearbeitet", "Druckauftrags")'>Bereits Bearbeitete Aufträge &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Drucker</h2>
+        <p>Hier kannst du dir die Drucker der anderen User ansehen.</p>
+        <p><a class="btn btn-default" href='@Url.Action("Index", "Druckers")'>Drucker &raquo;</a></p>
+    </div>
+</div>

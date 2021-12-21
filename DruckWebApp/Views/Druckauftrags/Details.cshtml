@@ -1,0 +1,58 @@
+﻿@model DruckLib.Druckauftrag
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Druckauftrag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Bauteil Url:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BauteilURL)
+        </dd>
+
+        <dt>
+            Vorgesehens Material:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Material)
+        </dd>
+
+        <dt>
+            gestartet am:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gestartet)
+        </dd>
+
+        <dt>
+            Ersteller:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Erstellt.Vorname)
+        </dd>
+
+        <dt>
+            Bearbeiter:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bearbeitet.Vorname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

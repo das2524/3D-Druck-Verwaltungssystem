@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Printing.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PrintingStoreContainer">
+    <EntitySet Name="PersonSet" EntityType="Printing.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DruckerSet" EntityType="Printing.Store.DruckerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DruckauftragSet" EntityType="Printing.Store.DruckauftragSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PersonDrucker" Association="Printing.Store.PersonDrucker">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Drucker" EntitySet="DruckerSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonDruckauftrag" Association="Printing.Store.Erstellt">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+    </AssociationSet>
+    <AssociationSet Name="Bearbeitet" Association="Printing.Store.Bearbeitet">
+      <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+      <End Role="Person" EntitySet="PersonSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Vorname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nachname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EMail" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DruckerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Besitzer" Type="int" Nullable="false" />
+    <Property Name="Bauraum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="VerfuegbareMaterialen" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DruckauftragSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BauteilURL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ersteller" Type="int" Nullable="false" />
+    <Property Name="bearbeiter" Type="int" Nullable="true" />
+    <Property Name="gestartet" Type="datetime" Nullable="true" />
+    <Property Name="Material" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonDrucker">
+    <End Role="Person" Type="Printing.Store.PersonSet" Multiplicity="1" />
+    <End Role="Drucker" Type="Printing.Store.DruckerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drucker">
+        <PropertyRef Name="Besitzer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Erstellt">
+    <End Role="Person" Type="Printing.Store.PersonSet" Multiplicity="1" />
+    <End Role="Druckauftrag" Type="Printing.Store.DruckauftragSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Druckauftrag">
+        <PropertyRef Name="ersteller" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Bearbeitet">
+    <End Role="Druckauftrag" Type="Printing.Store.DruckauftragSet" Multiplicity="*" />
+    <End Role="Person" Type="Printing.Store.PersonSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Druckauftrag">
+        <PropertyRef Name="bearbeiter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

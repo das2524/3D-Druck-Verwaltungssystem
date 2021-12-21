@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DruckLib.Person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Übersicht</h2>
+
+@if(null != TempData["alertMessage"])
+{
+    <script type="text/javascript">
+           alert('@TempData["alertMessage"]');
+    </script>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", "People")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMail)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vorname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nachname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMail)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "People", new { id = item.Id }, null) |
+                @Html.ActionLink("Details", "Details", "People", new { id = item.Id }, null) |
+                @Html.ActionLink("Select", "Select", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", "People", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>

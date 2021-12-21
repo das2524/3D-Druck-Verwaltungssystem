@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Printing.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PrintingStoreContainer">
+    <EntitySet Name="PersonSet" EntityType="Printing.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DruckerSet" EntityType="Printing.Store.DruckerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DruckauftragSet" EntityType="Printing.Store.DruckauftragSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PersonDrucker" Association="Printing.Store.PersonDrucker">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Drucker" EntitySet="DruckerSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonDruckauftrag" Association="Printing.Store.Erstellt">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+    </AssociationSet>
+    <AssociationSet Name="Bearbeitet" Association="Printing.Store.Bearbeitet">
+      <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+      <End Role="Person" EntitySet="PersonSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Vorname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nachname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EMail" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DruckerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Besitzer" Type="int" Nullable="false" />
+    <Property Name="Bauraum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="VerfuegbareMaterialen" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DruckauftragSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BauteilURL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ersteller" Type="int" Nullable="false" />
+    <Property Name="bearbeiter" Type="int" Nullable="true" />
+    <Property Name="gestartet" Type="datetime" Nullable="true" />
+    <Property Name="Material" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonDrucker">
+    <End Role="Person" Type="Printing.Store.PersonSet" Multiplicity="1" />
+    <End Role="Drucker" Type="Printing.Store.DruckerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drucker">
+        <PropertyRef Name="Besitzer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Erstellt">
+    <End Role="Person" Type="Printing.Store.PersonSet" Multiplicity="1" />
+    <End Role="Druckauftrag" Type="Printing.Store.DruckauftragSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Druckauftrag">
+        <PropertyRef Name="ersteller" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Bearbeitet">
+    <End Role="Druckauftrag" Type="Printing.Store.DruckauftragSet" Multiplicity="*" />
+    <End Role="Person" Type="Printing.Store.PersonSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Druckauftrag">
+        <PropertyRef Name="bearbeiter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Printing" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="PrintingContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonSet" EntityType="Printing.Person" />
+          <EntitySet Name="DruckerSet" EntityType="Printing.Drucker" />
+          <EntitySet Name="DruckauftragSet" EntityType="Printing.Druckauftrag" />
+          <AssociationSet Name="PersonDrucker" Association="Printing.PersonDrucker">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Drucker" EntitySet="DruckerSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonDruckauftrag" Association="Printing.Erstellt">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+          </AssociationSet>
+          <AssociationSet Name="Bearbeitet" Association="Printing.Bearbeitet">
+            <End Role="Druckauftrag" EntitySet="DruckauftragSet" />
+            <End Role="Person" EntitySet="PersonSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" Nullable="false" />
+          <NavigationProperty Name="Drucker" Relationship="Printing.PersonDrucker" FromRole="Person" ToRole="Drucker" />
+          <NavigationProperty Name="Erstellt" Relationship="Printing.Erstellt" FromRole="Person" ToRole="Druckauftrag" />
+          <NavigationProperty Name="Bearbeitet" Relationship="Printing.Bearbeitet" FromRole="Person" ToRole="Druckauftrag" />
+          <Property Name="Nachname" Type="String" Nullable="false" />
+          <Property Name="EMail" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Drucker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Printing.PersonDrucker" FromRole="Drucker" ToRole="Person" />
+          <Property Name="Besitzer" Type="Int32" Nullable="false" />
+          <Property Name="Bauraum" Type="String" Nullable="false" />
+          <Property Name="VerfuegbareMaterialen" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Druckauftrag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BauteilURL" Type="String" Nullable="false" />
+          <NavigationProperty Name="Erstellt" Relationship="Printing.Erstellt" FromRole="Druckauftrag" ToRole="Person" />
+          <Property Name="ersteller" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bearbeitet" Relationship="Printing.Bearbeitet" FromRole="Druckauftrag" ToRole="Person" />
+          <Property Name="bearbeiter" Type="Int32" Nullable="true" />
+          <Property Name="gestartet" Type="DateTime" Nullable="true" />
+          <Property Name="Material" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="PersonDrucker">
+          <End Type="Printing.Person" Role="Person" Multiplicity="1" />
+          <End Type="Printing.Drucker" Role="Drucker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Drucker">
+              <PropertyRef Name="Besitzer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Erstellt">
+          <End Type="Printing.Person" Role="Person" Multiplicity="1" />
+          <End Type="Printing.Druckauftrag" Role="Druckauftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Druckauftrag">
+              <PropertyRef Name="ersteller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bearbeitet">
+          <End Type="Printing.Druckauftrag" Role="Druckauftrag" Multiplicity="*" />
+          <End Type="Printing.Person" Role="Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Druckauftrag">
+              <PropertyRef Name="bearbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PrintingStoreContainer" CdmEntityContainer="PrintingContainer">
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Printing.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DruckerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Printing.Drucker)">
+        <MappingFragment StoreEntitySet="DruckerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Besitzer" ColumnName="Besitzer" />
+          <ScalarProperty Name="Bauraum" ColumnName="Bauraum" />
+          <ScalarProperty Name="VerfuegbareMaterialen" ColumnName="VerfuegbareMaterialen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DruckauftragSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Printing.Druckauftrag)">
+        <MappingFragment StoreEntitySet="DruckauftragSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BauteilURL" ColumnName="BauteilURL" />
+          <ScalarProperty Name="ersteller" ColumnName="ersteller" />
+          <ScalarProperty Name="bearbeiter" ColumnName="bearbeiter" />
+          <ScalarProperty Name="gestartet" ColumnName="gestartet" />
+          <ScalarProperty Name="Material" ColumnName="Material" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

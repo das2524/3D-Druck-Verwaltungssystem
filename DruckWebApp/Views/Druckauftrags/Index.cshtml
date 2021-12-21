@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DruckLib.Druckauftrag>
+
+@{
+    ViewBag.Title = "Offene Aufträge";
+}
+
+<h2>Offene Aufträge</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create") |
+    @Html.ActionLink("Bearbeitete Aufträge", "Bearbeitet")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BauteilURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gestartet)
+        </th>
+        <th>
+            Ersteller
+        </th>
+        <th>
+            Bearbeiter
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BauteilURL)
+        </td>
+        <td>
+            nicht gestartet!
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Erstellt.Vorname)
+        </td>
+        <td>
+            niemand
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+            @Html.ActionLink("Starten", "Start", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
