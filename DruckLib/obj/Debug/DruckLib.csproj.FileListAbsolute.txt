@@ -10,3 +10,15 @@ C:\Users\Dani1\source\repos\Druck\DruckLib\obj\Debug\DruckLib.csproj.CoreCompile
 C:\Users\Dani1\source\repos\Druck\DruckLib\obj\Debug\DruckLib.csproj.CopyComplete
 C:\Users\Dani1\source\repos\Druck\DruckLib\obj\Debug\DruckLib.dll
 C:\Users\Dani1\source\repos\Druck\DruckLib\obj\Debug\DruckLib.pdb
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\DruckLib.dll.config
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\DruckLib.dll
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\DruckLib.pdb
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\EntityFramework.dll
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\EntityFramework.xml
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\obj\Debug\DruckLib.csproj.AssemblyReference.cache
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\obj\Debug\DruckLib.csproj.CoreCompileInputs.cache
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\obj\Debug\DruckLib.csproj.CopyComplete
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\obj\Debug\DruckLib.dll
+C:\Users\Dani1\source\repos\3D-Druck-Verwaltungssystem\DruckLib\obj\Debug\DruckLib.pdb
